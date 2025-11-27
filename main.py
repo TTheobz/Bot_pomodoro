@@ -7,7 +7,6 @@ from functions.function_link_livro import link_livro
 from info import *
 
 canal_pomodoro = canal()
-
 chave = chave()
 dono = dono()
 bot = telebot.TeleBot(chave)
