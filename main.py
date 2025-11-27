@@ -4,11 +4,12 @@ from functions.function_comandos_disponiveis import comandos_disponiveis
 from functions.function_frase_livro import frase_livro
 from functions.function_capa_livro import capa_livro
 from functions.function_link_livro import link_livro
+from info import *
 
-canal_pomodoro = -1002810977719
+canal_pomodoro = canal()
 
-chave = ""
-dono = ""
+chave = chave()
+dono = dono()
 bot = telebot.TeleBot(chave)
 
 @bot.message_handler(commands=["start"])
