@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.comfig["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///biblioteca.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///biblioteca.db'
 
 db = SQLAlchemy(app)
 
@@ -15,7 +15,7 @@ class Book(db.Model):
     link = db.Column(db.String, unique=True, nullable=False)
 
 #rota para adicionar livro
-@app.route("api/book/add", methods=["POST"])
+@app.route("/api/book/add", methods=["POST"])
 def add_book():
     data = request.json
 
@@ -26,3 +26,10 @@ def add_book():
 
         return jsonify({"message" : "Book added succesfully!"})
     return jsonify({"Message" : "invalid product data"}), 400
+
+@app.route("/")
+def home():
+    return "ola"
+
+if __name__ == "__main__":
+    app.run(debug=True)
