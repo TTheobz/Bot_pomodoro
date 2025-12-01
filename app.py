@@ -27,6 +27,24 @@ def add_book():
         return jsonify({"message" : "Book added succesfully!"})
     return jsonify({"Message" : "invalid product data"}), 400
 
+#Rota para ver a lista de livros salvos
+@app.route("/api/book", methods=["GET"])
+def lista():
+    book = Book.query.all()
+    book_list = []
+
+    for item in book:
+        book_data = {
+            "id" : item.id,
+            "capa" : item.capa,
+            "texto" : item.texto,
+            "titulo" : item.titulo,
+            "valor" : item.valor,
+            "link" : item.link
+        }
+        book_list.append(book_data)
+    return jsonify(book_list)
+
 @app.route("/")
 def home():
     return "ola"

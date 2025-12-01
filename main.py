@@ -21,5 +21,20 @@ def callback_handler(call):
     if call.data == "publicar livro":
         with open(capa_livro(), "rb") as capa:
             bot.send_photo(canal_pomodoro, capa, caption=frase_livro(), reply_markup=link_livro())
+    
+    if call.data == "api":
+        url = "http://127.0.0.1:5000/api/book"
+        livros = requests.get(url)
+        livros = livros.json()
+
+        for book in livros:
+            if book["id"] == 1:
+                if isinstance(book["link"], str) and book["link"].startswith(("http://", "https://")):
+                    keyboard = InlineKeyboardMarkup()
+                    keyboard.add(InlineKeyboardButton("Comprar Livro", url=book["link"]))
+                    
+                    caminho_da_imagem = book["capa"]
+                    with open(caminho_da_imagem, "rb") as capa:
+                        bot.send_photo(canal_pomodoro, capa, caption=book["texto"], reply_markup=keyboard)
 
 bot.polling()
